@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce</title>
+
+    <style>
+        *{
+            font-family: cursive;
+        }
+        body{
+            background-color:beige;
+            font-family:cursive ;
+            justify-content: center;
+        }
+        .navbar{
+            display: flex;
+            height: 30px;
+            justify-content: center;
+        }
+        .parent{
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+            gap: 20px;
+            
+        }
+        .card{
+            border: 1px solid black;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 8px;
+            background-color: #fdf5f5;
+            
+        }
+        .card img{
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            
+        }
+        .card h4{
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+        }
+        .card p{
+            font-size: 12px;
+            margin: 2px 2px;
+            font-family: 'Inter', sans-serif;
+        }
+        .card button{
+            background-color: rgb(33, 226, 52);
+            border-radius: 5px;
+            border: none;
+            padding: 5px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+        .card button:hover{ 
+            transform: scale(1.01);
+        }
+        .card:hover{
+            
+            transform: scale(1.01);
+        }
+        .navbar button:hover{
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    
+    <h2 style=" text-align:center">Welcome to platform that fulfills your needs...</h2>
+    <hr style="border: 1px solid black;">
+    <div class="navbar">
+    
+        <input style="margin-right: 5px; border-radius:5px; border:1px solid black;" placeholder="enter product name..." type="text">
+        <button style="background-color: rgb(255, 23, 74); border-radius:5px; cursor:pointer; border:none" type="submit">Search</button>
+
+    </div>
+    <hr style="border:1px solid black;">
+    <section>
+        <div class="parent">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1763891378295-5d9bd5c48745?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aXBob25lJTIwMTclMjBwcm98ZW58MHx8MHx8fDA%3D" alt="">
+                <h4>iPhone 17 Pro Max</h4>
+                <p>1TB storage, ProMotion display, advanced periscope camera.</p>
+
+                <button>Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1569770218135-bea267ed7e84?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                <h4>MacBook Pro (M4, 14-inch)</h4>
+                <p>Apple M4 chip, 16GB unified memory, 1TB SSD, Liquid Retina XDR display, up to 10 hours of battery life.</p>
+
+                <button>Add to Cart</button>
+
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1648197395199-e7f8d3dd0a3c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d2luZG93cyUyMGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D" alt="">
+                <h4>ASUS </h4>
+                <p>Intel Core i7 processor, 16GB RAM, 1TB SSD, NVIDIA RTX 2050 (4GB), 15.6″ Full HD 144Hz display.</p>
+
+                <button>Add to Cart</button>
+
+            </div> 
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                <h4>Ergonomic Office Table</h4>
+                <p>Sturdy wooden desk with spacious surface, cable-management support, ideal for home and office setups.</p>
+    
+                <button>Add to Cart</button>
+                
+            </div>
+            <div class="card">
+                <img src="https://media.istockphoto.com/id/1143095082/photo/computer-chair-professional-series-orthopedic-chair.jpg?s=612x612&w=0&k=20&c=2txAy9MWws77Njz0Cq93KLWMVduK1s8PI2F2_klaCz4=" alt="">
+                <h4>Gaming Chair </h4>
+                <p>High-back ergonomic design, adjustable armrests, lumbar support, breathable material for long gaming sessions.</p>
+    
+                <button>Add to Cart</button>
+    
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1732775490298-995203fae959?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bnZpZGlhJTIwcnR4fGVufDB8fDB8fHww" alt="">
+                <h4>NVIDIA GeForce RTX 5060</h4>
+                <p>Next-gen RTX architecture, ray tracing support, DLSS technology, optimized for high-performance gaming and AI workloads.</p>
+    
+                <button>Add to Cart</button>
+    
+            </div> 
+        </div>
+    </section>
+</body>
+</html>

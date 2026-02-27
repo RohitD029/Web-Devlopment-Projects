@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+
+    <style>
+        body{
+        
+            background-color:rgba(230, 230, 250, 0.833);
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            margin: 0px;
+        }
+        .form{
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            padding: 0px;
+            margin: 0px;
+        }
+        form{
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 400px;
+            height: 80vh;
+            border: 2px solid;
+            box-shadow: 0px 0px 8px black;
+            border-radius: 10px;
+            padding: 5px;
+            row-gap: 20px;
+        }
+        .display{
+            background-color: rgba(81, 219, 194, 0.571);
+            width: 600px;
+            height: 80vh;
+            border: 2px solid;
+            box-shadow: 0px 0px 8px black;
+            border-radius: 10px;
+            padding: 5px;
+            row-gap: 20px;
+        }
+
+        input{
+            width: 80%;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        button{
+            padding: 5px;
+            background-color: rgb(67, 225, 196);
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px black;
+        }
+        button:hover{
+            transform: scale(1.03);
+        }
+        #name{
+            text-align: center;
+        }
+        .header{
+            position: relative;
+            font-weight: bold;
+        }
+        .input{
+            border: 2px solid;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .textarea{
+            border: 1px solid;
+            margin: 10px;
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form">
+        <form action="">
+            <label for="Name">Full name</label>
+            <input type="text" id="inputname">
+            <label for="">Skills</label>
+            
+            <textarea name="" class="input" id="inputskill"></textarea>
+            <label for="">Projects</label>
+            <textarea name="" class="input" id="inputproject"></textarea>
+            <label for="">Experience</label>
+            <textarea name="" class="input" id="inputexperience"></textarea>
+            
+            <button id="submit">Submit</button>
+        </form>
+
+        <div class="display">
+
+            <div class="textarea">
+                <ul id="name" style="margin-top: 50px;">
+                </ul>
+
+            </div>
+
+            <hr style="width:80%; border: 1px solid black;">
+            <div class="textarea">
+                <span class="header">Skills:</span><br>
+                <ul id="skill" style="margin-top: 50px;">
+                </ul>
+            </div>
+
+            <hr style="width:80%; border: 1px solid black;">
+
+            <div class="textarea">
+                <span class="header">Projects:</span><br>
+                <ul id="project" style="margin-top: 50px;"> 
+                </ul>
+
+            </div>
+
+            <hr style="width:80%; border: 1px solid black;">
+
+            <div class="textarea">
+                <span class="header">Experience:</span><br>
+                <ul id="experience" style="margin-top: 50px;">
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let form = document.querySelector("form")
+
+        form.addEventListener("submit", function(event){
+
+            event.preventDefault();
+    
+            let name = document.getElementById("inputname").value;
+            let skill = document.getElementById("inputskill").value
+            let project = document.getElementById("inputproject").value
+            let experience = document.getElementById("inputexperience").value
+
+            document.getElementById("name").innerHTML = "<h2>"+name+"</h2>";
+            document.getElementById("skill").innerHTML = "<p>"+skill +"</p>";
+            document.getElementById("project").innerHTML = "<p>"+ project +"</p>";
+            document.getElementById("experience").innerHTML = "<li>"+ experience +"</li>";
+        });
+
+    </script>
+</body>
+</html>

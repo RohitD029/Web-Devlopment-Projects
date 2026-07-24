@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered email spam detection — instantly classify emails as spam or safe using machine learning. Analyze single messages or upload bulk CSV files.">
+    <title>SpamShield — AI Email Spam Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+</head>
+<body>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="container">
+
+        <!-- ═══ Header ═══ -->
+        <header class="header">
+            <div class="header__logo">
+                <div class="header__icon">🛡️</div>
+                <h1 class="header__title">SpamShield</h1>
+            </div>
+            <p class="header__subtitle">AI-powered email spam detection — classify messages instantly with machine learning</p>
+        </header>
+
+        <!-- ═══ Navigation Tabs ═══ -->
+        <nav class="nav-tabs" id="navTabs">
+            <button class="nav-tab active" data-tab="analyze" id="tabAnalyze">
+                🔍 Analyze Email
+            </button>
+            <button class="nav-tab" data-tab="bulk" id="tabBulk">
+                📁 Bulk Upload
+            </button>
+            <button class="nav-tab" data-tab="history" id="tabHistory">
+                📋 History
+            </button>
+            <button class="nav-tab" data-tab="dashboard" id="tabDashboard">
+                📊 Dashboard
+            </button>
+        </nav>
+
+        <!-- ═══════════════════════════════════════════════════
+             Section 1: Single Email Analyzer
+             ═══════════════════════════════════════════════════ -->
+        <section class="section active" id="sectionAnalyze">
+            <div class="card">
+                <h2 class="section__title">Analyze an Email</h2>
+                <p class="section__desc">Paste or type an email message below and our AI model will classify it as spam or safe.</p>
+
+                <div class="predict-box">
+                    <textarea
+                        class="predict-box__textarea"
+                        id="emailInput"
+                        placeholder="Paste your email content here...&#10;&#10;Example: Congratulations! You've won a $1000 gift card. Click here to claim now!"
+                        spellcheck="false"
+                    ></textarea>
+                    <div class="predict-box__actions">
+                        <button class="btn btn--primary" id="analyzeBtn" onclick="analyzeSingle()">
+                            🔍 Analyze
+                        </button>
+                        <button class="btn btn--secondary" id="clearBtn" onclick="clearInput()">
+                            ✕ Clear
+                        </button>
+                        <div class="spinner" id="analyzeSpinner"></div>
+                    </div>
+                </div>
+
+                <!-- Result (hidden by default) -->
+                <div id="singleResult" style="display: none;"></div>
+            </div>
+
+            <!-- Quick Test Examples -->
+            <div class="card" style="margin-top: 20px;">
+                <h3 class="section__title" style="font-size: 1.1rem;">⚡ Quick Test Examples</h3>
+                <p class="section__desc" style="margin-bottom: 16px;">Click any example to auto-fill and analyze:</p>
+                <div style="display: flex; flex-direction: column; gap: 8px;" id="examplesContainer">
+                    <button class="btn btn--secondary btn--sm" onclick="testExample('Congratulations! You have been selected as winner of our $5000 prize draw. Call 09061701461 to claim NOW!')">
+                        🎰 Prize scam
+                    </button>
+                    <button class="btn btn--secondary btn--sm" onclick="testExample('Hey, are we still meeting for lunch tomorrow at the usual place?')">
+                        💬 Normal chat
+                    </button>
+                    <button class="btn btn--secondary btn--sm" onclick="testExample('URGENT: Your bank account has been compromised. Click this link immediately to verify your identity and secure your funds: http://fake-bank.com/verify')">
+                        🏦 Phishing attempt
+                    </button>
+                    <button class="btn btn--secondary btn--sm" onclick="testExample('Hi Mom, I just finished my exam. Can you pick me up at 4pm from school?')">
+                        👋 Family message
+                    </button>
+                    <button class="btn btn--secondary btn--sm" onclick="testExample('FREE entry to our weekly competition! Text WIN to 80085 for a chance to win an iPhone 15 Pro. Ts&Cs apply. Reply STOP to opt out.')">
+                        📱 SMS spam
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+             Section 2: Bulk Upload
+             ═══════════════════════════════════════════════════ -->
+        <section class="section" id="sectionBulk">
+            <div class="card">
+                <h2 class="section__title">Bulk Email Analysis</h2>
+                <p class="section__desc">Upload a CSV file with a "message" column and get spam/ham predictions for every row.</p>
+
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" class="upload-zone__input" id="csvFileInput" accept=".csv" />
+                    <span class="upload-zone__icon">📤</span>
+                    <p class="upload-zone__text">
+                        Drag & drop your CSV file here, or <strong>browse</strong>
+                    </p>
+                    <p class="upload-zone__filename" id="uploadFilename"></p>
+                </div>
+
+                <div class="bulk-actions">
+                    <button class="btn btn--primary" id="bulkAnalyzeBtn" onclick="analyzeBulk()" disabled>
+                        🚀 Analyze All
+                    </button>
+                    <div class="spinner" id="bulkSpinner"></div>
+                </div>
+
+                <div id="bulkResults" style="display: none;"></div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+             Section 3: Prediction History
+             ═══════════════════════════════════════════════════ -->
+        <section class="section" id="sectionHistory">
+            <div class="card">
+                <div class="history-header">
+                    <div>
+                        <h2 class="section__title">Prediction History</h2>
+                        <span class="history-header__count" id="historyCount">0 predictions</span>
+                    </div>
+                    <button class="btn btn--danger btn--sm" id="clearHistoryBtn" onclick="clearHistory()">
+                        🗑️ Clear All
+                    </button>
+                </div>
+                <div id="historyContent"></div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+             Section 4: Model Dashboard
+             ═══════════════════════════════════════════════════ -->
+        <section class="section" id="sectionDashboard">
+            <h2 class="section__title">Model Dashboard</h2>
+            <p class="section__desc">Performance metrics of the trained Naive Bayes spam classifier.</p>
+
+            <!-- Stat Cards -->
+            <div class="stats-grid" id="statsGrid">
+                <!-- Filled by JS -->
+            </div>
+
+            <div class="card">
+                <!-- Confusion Matrix -->
+                <div class="matrix-section">
+                    <h3 class="matrix-section__title">Confusion Matrix — Naive Bayes</h3>
+                    <div class="confusion-matrix" id="confusionMatrix">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Dataset Distribution -->
+                <div class="dataset-bar">
+                    <h3 class="dataset-bar__title">Dataset Distribution</h3>
+                    <div class="dataset-visual" id="datasetVisual">
+                        <div class="dataset-visual__ham" id="hamBar" style="width: 0%;"></div>
+                        <div class="dataset-visual__spam" id="spamBar" style="width: 0%;"></div>
+                    </div>
+                    <div class="dataset-legend" id="datasetLegend">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Model Comparison -->
+                <div class="model-compare">
+                    <h3 class="model-compare__title">Model Comparison</h3>
+                    <div class="results-table-wrap" id="modelCompareTable">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ Footer ═══ -->
+        <footer class="footer">
+            <p>Built with ❤️ using Python, FastAPI & scikit-learn</p>
+        </footer>
+
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
